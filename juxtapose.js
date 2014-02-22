@@ -1,4 +1,6 @@
 function juxtapose(left, right, separator) {
+  separator || (separator = ' | ');
+
   if (typeof left !== 'string') {
     left = JSON.stringify(left, null, 2);
   }
