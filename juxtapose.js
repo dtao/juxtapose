@@ -14,7 +14,7 @@ function juxtapose(left, right, separator) {
 
   var output = Array(Math.max(leftLines.length, rightLines.length));
   for (var i = 0; i < output.length; ++i) {
-    output[i] = pad(leftLines[i] || '', leftWidth) + separator + rightLines[i] || '';
+    output[i] = pad(leftLines[i] || '', leftWidth) + separator + (rightLines[i] || '');
   }
 
   return output.join('\n')
