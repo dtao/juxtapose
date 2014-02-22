@@ -8,18 +8,18 @@ describe 'juxtapose', ->
 
   beforeEach ->
     obj1 =
-      foo: 1
-      bar: 2
+      abc: 1
+      def: 2
     obj2 =
-      foo: 3
-      bar: 4
+      abc: 3
+      def: 4
 
   it 'puts two blocks of text side by side', ->
     juxtapose(obj1, obj2).should.eql(
       '''
       {           | {
-        "foo": 1, |   "foo": 3,
-        "bar": 2  |   "bar": 4
+        "abc": 1, |   "abc": 3,
+        "def": 2  |   "def": 4
       }           | }
       '''
     )
@@ -28,21 +28,34 @@ describe 'juxtapose', ->
     juxtapose(obj1, obj2, '/* vs */').should.eql(
       '''
       {          /* vs */{
-        "foo": 1,/* vs */  "foo": 3,
-        "bar": 2 /* vs */  "bar": 4
+        "abc": 1,/* vs */  "abc": 3,
+        "def": 2 /* vs */  "def": 4
       }          /* vs */}
       '''
     )
 
   it 'includes all lines when left side is longer', ->
-    obj1.baz = 10
+    obj1.ghi = 10
 
     juxtapose(obj1, obj2).should.eql(
       '''
       {           | {
-        "foo": 1, |   "foo": 3,
-        "bar": 2, |   "bar": 4
-        "baz": 10 | }
+        "abc": 1, |   "abc": 3,
+        "def": 2, |   "def": 4
+        "ghi": 10 | }
       }           | 
+      '''
+    )
+
+  it 'includes all lines when right side is longer', ->
+    obj2.ghi = 10
+
+    juxtapose(obj1, obj2).should.eql(
+      '''
+      {           | {
+        "abc": 1, |   "abc": 3,
+        "def": 2  |   "def": 4,
+      }           |   "ghi": 10
+                  | }
       '''
     )

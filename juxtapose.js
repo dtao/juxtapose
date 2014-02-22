@@ -1,11 +1,13 @@
+var stringify = require('json-stable-stringify');
+
 function juxtapose(left, right, separator) {
   separator || (separator = ' | ');
 
   if (typeof left !== 'string') {
-    left = JSON.stringify(left, null, 2);
+    left = stringify(left, { space: 2 });
   }
   if (typeof right !== 'string') {
-    right = JSON.stringify(right, null, 2);
+    right = stringify(right, { space: 2 });
   }
 
   var leftLines  = left.split('\n'),
