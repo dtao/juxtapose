@@ -1,0 +1,28 @@
+{
+  "name": "juxtapose",
+  "version": "0.1.0",
+  "description": "Compare multi-line strings side by side",
+  "main": "juxtapose.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dtao/juxtapose"
+  },
+  "keywords": [
+    "string",
+    "strings",
+    "comparison",
+    "diff",
+    "text"
+  ],
+  "author": "Dan Tao <daniel.tao@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dtao/juxtapose/issues"
+  }
+}
