@@ -1,7 +1,11 @@
 var stringify = require('json-stable-stringify');
 
-function juxtapose(left, right, separator) {
-  separator || (separator = ' | ');
+function Comparer(options) {
+  this.options = options || {};
+}
+
+Comparer.prototype.compare = function compare(left, right) {
+  var separator = this.options.separator || ' | ';
 
   if (typeof left !== 'string') {
     left = stringify(left, { space: 2 });
@@ -20,7 +24,26 @@ function juxtapose(left, right, separator) {
   }
 
   return output.join('\n')
+};
+
+function juxtapose(left, right) {
+  var comparer = new Comparer();
+
+  var result = comparer.compare(left, right);
+  for (var i = 2; i < arguments.length; ++i) {
+    result = comparer.compare(result, arguments[i]);
+  }
+
+  return result;
 }
+
+juxtapose.withOptions = function withOptions(options) {
+  var comparer = new Comparer(options);
+
+  return function juxtapose(left, right) {
+    return comparer.compare(left, right);
+  };
+};
 
 function getLongestLine(lines) {
   return lines.reduce(function(maxLength, line) {
