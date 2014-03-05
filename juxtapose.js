@@ -120,4 +120,6 @@ function space(width) {
   return Array(width + 1).join(' ');
 }
 
+juxtapose.VERSION = '0.1.0';
+
 module.exports = juxtapose;
