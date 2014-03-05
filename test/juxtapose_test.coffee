@@ -48,13 +48,13 @@ describe 'juxtapose', ->
     )
 
   it 'supports a custom separator', ->
-    compare = juxtapose.withOptions({ separator: '/* vs */' })
+    compare = juxtapose.withOptions({ separator: ' * <---> * ' })
     compare(obj1, obj2).should.eql(
       '''
-      {          /* vs */{
-        "abc": 1,/* vs */  "abc": 3,
-        "def": 2 /* vs */  "def": 4
-      }          /* vs */}
+      {           * <---> * {
+        "abc": 1, * <---> *   "abc": 3,
+        "def": 2  * <---> *   "def": 4
+      }           * <---> * }
       '''
     )
 
@@ -66,6 +66,17 @@ describe 'juxtapose', ->
         "abc": 1, -   "abc": 3,
         "def": 2  +   "def": 4
       }           - }
+      '''
+    )
+
+  # This isn't really a unit test, just a demonstration of how this is easy.
+  it 'allows a non-repeated separator by inserting a string as an argument', ->
+    juxtapose(obj1, 'vs.', obj2).should.eql(
+      '''
+      {           | vs. | {
+        "abc": 1, |     |   "abc": 3,
+        "def": 2  |     |   "def": 4
+      }           |     | }
       '''
     )
 
