@@ -58,6 +58,17 @@ describe 'juxtapose', ->
       '''
     )
 
+  it 'allows the custom separator to be multiple lines', ->
+    compare = juxtapose.withOptions({ separator: ' + \n - ' })
+    compare(obj1, obj2).should.eql(
+      '''
+      {           + {
+        "abc": 1, -   "abc": 3,
+        "def": 2  +   "def": 4
+      }           - }
+      '''
+    )
+
   it 'includes all lines when left side is longer', ->
     obj1.ghi = 10
 

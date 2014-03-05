@@ -29,7 +29,7 @@ function Comparer(opt_options) {
  * @return {string}
  */
 Comparer.prototype.compare = function compare(left, right) {
-  var separator = this.options.separator || ' | ';
+  var separator = splitSeparator(this.options.separator);
 
   if (typeof left !== 'string') {
     left = stringify(left, { space: 2 });
@@ -44,7 +44,9 @@ Comparer.prototype.compare = function compare(left, right) {
 
   var output = Array(Math.max(leftLines.length, rightLines.length));
   for (var i = 0; i < output.length; ++i) {
-    output[i] = pad(leftLines[i] || '', leftWidth) + separator + (rightLines[i] || '');
+    output[i] = pad(leftLines[i] || '', leftWidth) +
+      separator[i % separator.length] +
+      (rightLines[i] || '');
   }
 
   return output.join('\n')
@@ -82,6 +84,25 @@ juxtapose.withOptions = function withOptions(options) {
     return comparer.compare(left, right);
   };
 };
+
+/**
+ * Splits a separator into multiple, equal-width lines.
+ *
+ * @param {string} separator
+ * @return {Array.<string>}
+ */
+function splitSeparator(separator) {
+  separator || (separator = ' | ');
+
+  separator = separator.split('\n');
+  var width = getLongestLine(separator);
+
+  separator = separator.map(function(line) {
+    return pad(line, width);
+  });
+
+  return separator;
+}
 
 /**
  * Returns the length of the longest string in an array of strings.
