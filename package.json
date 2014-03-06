@@ -31,6 +31,7 @@
   "devDependencies": {
     "autodoc": "0.6.1",
     "coffee-script": "~ 1.7.1",
+    "jasmine-node": "~ 1.13.1",
     "mocha": "~ 1.17.1",
     "should": "~ 3.1.2"
   }
