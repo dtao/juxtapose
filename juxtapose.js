@@ -49,7 +49,7 @@ Comparer.prototype.compare = function compare(left, right) {
       (rightLines[i] || '');
   }
 
-  return output.join('\n')
+  return output.join('\n');
 };
 
 /**
