@@ -110,6 +110,10 @@ function splitSeparator(separator) {
  * @private
  * @param {Array.<string>} lines
  * @return {number}
+ *
+ * @example
+ * getLongestLine(['apple', 'banana']);
+ * // => 'banana'.length
  */
 function getLongestLine(lines) {
   return lines.reduce(function(maxLength, line) {
@@ -136,6 +140,9 @@ function pad(string, width) {
  * @private
  * @param {number} width
  * @return {string}
+ *
+ * @example
+ * space(3); // => '   '
  */
 function space(width) {
   return Array(width + 1).join(' ');
