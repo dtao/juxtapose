@@ -37,6 +37,20 @@ describe 'juxtapose', ->
       '''
     )
 
+  it 'does not excessively pad columns due to escape sequences', ->
+    txt1 =
+      '''
+      \x1B[32mhello\x1B[39m,
+      world!
+      '''
+
+    juxtapose(txt1, txt2).should.eql(
+      '''
+      \x1B[32mhello\x1B[39m, | goodbye,
+      world! | world!
+      '''
+    )
+
   it 'can compare two objects', ->
     juxtapose(obj1, obj2).should.eql(
       '''

@@ -114,11 +114,29 @@ function splitSeparator(separator) {
  * @example
  * getLongestLine(['apple', 'banana']);
  * // => 'banana'.length
+ *
+ * @example
+ * getLongestLine(['\x1B[32mapple\x1B[39m', 'banana']);
+ * // => 'banana'.length
  */
 function getLongestLine(lines) {
   return lines.reduce(function(maxLength, line) {
-    return Math.max(maxLength, line.length);
+    return Math.max(maxLength, visibleLength(line));
   }, 0);
+}
+
+/**
+ * Returns the visible length (excluding escape sequences) of a string.
+ *
+ * @private
+ * @param {string} string
+ * @return {number}
+ *
+ * @example
+ * visibleLength('\x1B[32mfoo\x1B[39m'); // => 3
+ */
+function visibleLength(string) {
+  return string.replace(/\x1B\[[\d;]+m/g, '').length;
 }
 
 /**
@@ -128,9 +146,12 @@ function getLongestLine(lines) {
  * @param {string} string
  * @param {number} width
  * @return {string}
+ *
+ * @example
+ * pad('foo', 5); // => 'foo  '
  */
 function pad(string, width) {
-  var padding = width - string.length;
+  var padding = width - visibleLength(string);
   return string + space(padding);
 }
 
